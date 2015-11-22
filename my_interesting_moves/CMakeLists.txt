@@ -1,0 +1,46 @@
+cmake_minimum_required(VERSION 2.8.3)
+project(my_interesting_moves)
+
+find_package(cmake_modules REQUIRED)
+find_package(Eigen REQUIRED)
+
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  gazebo_msgs
+  message_generation
+  actionlib
+  actionlib_msgs
+  trajectory_msgs
+  roslint
+)
+
+roslint_cpp()
+
+include_directories(
+  ${Eigen_INCLUDE_DIRS}
+  ${PROJECT_NAME}/include
+)
+
+add_definitions(${EIGEN_DEFINITIONS})
+
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
+
+catkin_simple()
+
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+
+# Libraries
+cs_add_library(my_interesting_moves src/my_interesting_moves.cpp)
+
+# Executables
+
+
+#target_link_libraries(my_interesting_moves ${catkin_LIBRARIES})
+
+cs_install()
+cs_export()
